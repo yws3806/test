@@ -4,11 +4,22 @@
     <title>websocket</title>
   </head>
   <body>
-    <input />
-    <button>전송</button>
-    <div class="live"></div>
-    <hr />
-    <div class="chat"></div>
-    <script src="/dist/app.js"></script>
+    <script src="./dist/app.js"></script>
+    <div class="wrapper">
+      <div class="user-container">
+        대화명 : <input type="text" id="nickname" />
+      </div>
+      <div class="display-container">
+        <ul class="chatting-list">
+          <!-- 채팅하나씩 li로 집어 넣을 것 -->
+        </ul>
+      </div>
+      <div class="input-container">
+        <input type="text" class="chatting-input" />
+        <button>전송</button>
+        <div class="live"></div>
+        <div class="chat"></div>
+      </div>
+    </div>
   </body>
 </html>

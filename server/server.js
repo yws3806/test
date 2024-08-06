@@ -1,13 +1,13 @@
 import express from "express";
-import http from "http";
 import path from "path";
+import cors from "cors";
 
 import { createServer } from "http";
 import { Server } from "socket.io";
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(server, {
+const io = new Server(httpServer, {
   cors: {
     origin: "http://localhost:4000",
     methods: ["GET", "POST"],
@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 });
 
 // 클라이언트 연결 시
-io.on("connect", (socket) => {
+io.on("connection", (socket) => {
   console.log("a user connected");
 
   socket.on("client", (data) => {
@@ -47,10 +47,13 @@ io.on("connect", (socket) => {
   socket.on("liveChat", (liveChat, key) => {
     socket.to(key).emit("liveChat", liveChat);
   });
+
+  socket.on("chatting", (data) => {
+    const message = `${data.name} : ${data.msg}`;
+    io.to(data.key).emit("chat", message);
+  });
 });
 
-io.listen(3001);
-
-server.listen(3001, () => {
+httpServer.listen(3001, () => {
   console.log("listening on *:3001");
 });

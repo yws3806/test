@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const socket = io("ws://localhost:3001", {
+const socket = io("http://localhost:3001", {
   withCredentials: true,
 });
 
@@ -23,6 +23,9 @@ socket.emit("join", 1);
 const input = document.querySelector("input");
 const button = document.querySelector("button");
 const chatDiv = document.querySelector(".chat");
+const nickname = document.querySelector("#nickname");
+const chatList = document.querySelector(".chatting-list");
+const chatInput = document.querySelector(".chatting-input");
 
 socket.on("chat", (data) => {
   const chat = document.createElement("div");
@@ -34,6 +37,11 @@ button.addEventListener("click", () => {
   console.log(input.value);
   socket.emit("chat", input.value, 1);
   input.value = "";
+  const param = {
+    name: nickname.value,
+    msg: chatInput.value,
+  };
+  socket.emit("chatting", param);
 });
 
 const liveDiv = document.querySelector(".live");
