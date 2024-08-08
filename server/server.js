@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, "dist")));
 
 /** 메인 라우터 */
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "./dist/index.html"));
+  res.sendFile(path.join(__dirname, "./client/index.html"));
 });
 
 // 클라이언트 연결 시
