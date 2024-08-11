@@ -5,6 +5,8 @@ import cors from "cors";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
+const __dirname = path.resolve();
+
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
@@ -49,8 +51,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("chatting", (data) => {
-    const message = `${data.name} : ${data.msg}`;
-    io.to(data.key).emit("chat", message);
+    io.emit("chatting", data);
   });
 });
 
