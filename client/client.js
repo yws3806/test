@@ -28,14 +28,14 @@ const chatList = document.querySelector(".chatting-list");
 const chatInput = document.querySelector(".chatting-input");
 
 button.addEventListener("click", () => {
-  console.log(input.value);
+  console.log(chatInput.value);
   const param = {
     name: nickname.value,
     msg: chatInput.value,
   };
   socket.emit("chatting", param);
-  socket.emit("chat", input.value, 1);
-  input.value = "";
+  socket.emit("chat", chatInput.value, 1);
+  chatInput.value = "";
 });
 
 socket.on("chat", (data) => {
@@ -56,6 +56,6 @@ socket.on("liveChat", (data) => {
   liveDiv.innerText = data;
 });
 
-input.addEventListener("keyup", () => {
+chatInput.addEventListener("keyup", () => {
   socket.emit("liveChat", input.value, 1);
 });
